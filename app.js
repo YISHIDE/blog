@@ -46,7 +46,7 @@ if(config.debug){
 }
 else{
     app.use(function(err,req,res,next) {
-       fs.write("./log.txt",err+"-------\n",function(err){
+       fs.appendFile("./log.txt",err+"-------\n",function(err){
            if(err){
               return console.log("日志写入失败");
            }
