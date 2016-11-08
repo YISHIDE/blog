@@ -54,8 +54,12 @@ else{
        })
     });
 }
+//<<<<<<< HEAD
 //master分支下写得项目
 
+//=======
+//在hotfix分支下面写的代码
+//>>>>>>> hotfix
 app.listen(3000,'127.0.0.1', function () {
     console.log('server is running at port 3000');
 });
