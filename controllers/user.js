@@ -4,12 +4,9 @@
  "use strict";
 //
 //const db=require("./db");
-const utility=require("utility");
+const utility=require("utility");//md5加密
 const User=require("../modules/user");
 exports.showRegister=function(req,res,next){
-    if(req.session.user){
-        return res.redirect("/");
-    }
     res.render("register")
 };
 exports.doRegister=function(req,res,next){
@@ -112,9 +109,6 @@ exports.doRegister=function(req,res,next){
     //   })
 };
 exports.showLogin=function(req,res,next){
-     if(req.session.user){
-       return res.redirect("/")
-     }
     res.render("login");
 };
 exports.doLogin=function(req,res,next){

@@ -67,7 +67,7 @@
 
           </div>
           <!-- end 问题详细模块 -->
-
+           {{#if (user)}}
           <!-- 回复编辑器 -->
           <div class="aw-mod aw-replay-box question">
             <a name="answer_form"></a>
@@ -95,6 +95,12 @@
               </div>
             </form>
           </div>
+          {{else}}
+          <div class="aw-mod aw-replay-box question">
+          	<a name="answer_form"></a>
+          	<p align="center">要回复问题请先<a href="/login">登录</a>或<a href="/register/">注册</a></p>
+          </div>
+          {{/if}}
           <!-- end 回复编辑器 -->
         </div>
         <!-- 侧边栏 -->

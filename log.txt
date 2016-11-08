@@ -1,11 +1,1 @@
-Error: XTemplate error in file: e:/www/blog/views/header at line 1: XTemplate error in file: e:/www/blog/views/header.xtpl syntax error at line 57:
-...">          {{#if user}}       <a hre...
------------------------^
-expect reduce:L_PAREN, reduce:SEP, reduce:L_BRACKET, reduce:CLOSE, reduce:QUERY, reduce:OR, reduce:AND, reduce:LOGIC_EQUALS, reduce:LOGIC_NOT_EQUALS, reduce:GE, reduce:LE, reduce:GT, reduce:LT, reduce:PLUS, reduce:MINUS, reduce:MULTIPLY, reduce:DIVIDE, reduce:MODULUS, reduce:R_PAREN, reduce:R_BRACKET, reduce:COMMA, reduce:EQUALS, reduce:COLON, reduce:R_BRACE------
-Error: Can't set headers after they are sent.------
-Error: Failed to lookup view "add" in views directory "e:\www\blog\views"------
-Error: Failed to lookup view "add" in views directory "e:\www\blog\views"------
-Error: Failed to lookup view "add" in views directory "e:\www\blog\views"------
-Error: Failed to lookup view "add" in views directory "e:\www\blog\views"------
-Error: Failed to lookup view "add" in views directory "e:\www\blog\views"------
-Error: Failed to lookup view "add" in views directory "e:\www\blog\views"------
+

@@ -7,53 +7,27 @@
         <div class="col-sm-12 col-md-9 aw-main-content">
           <div class="aw-mod aw-explore-list">
             <div class="mod-body">
-              <div class="aw-common-list">
-
-                {{#each (articles)}}
-                <div class="aw-item active" data-topic-id="57,">
-                  <a class="aw-user-name hidden-xs" data-id="3654"
-                     href="http://wenda.golaravel.com/people/%E7%8E%8B%E5%8D%8E%E5%81%A5Ss"
-                     rel="nofollow"><img
-                          src="http://wenda.golaravel.com/static/common/avatar-max-img.png"
-                          alt=""/></a>
-                  <div class="aw-question-content">
-                    <h4>
-                      <a href="http://wenda.golaravel.com/question/2006">{{this.title}}</a>
-                    </h4>
-
-
-                    <p>作者：
-                      <a href="/u/{{this.username}}"
-                         class="aw-user-name">{{this.username}}</a>
-				<span class="text-color-999">• 0 个回复 • {{this.time}}
-				</span>
-                    </p>
-
-                  </div>
+              <div class="aw-common-list" id="aw-common-list">
+ <div class="aw-item active" data-topic-id="57,">
+       <a class="aw-user-name hidden-xs" data-id="3654"href="http://wenda.golaravel.com/people/%E7%8E%8B%E5%8D%8E%E5%81%A5Ss"rel="nofollow">
+       <img src="http://wenda.golaravel.com/static/common/avatar-max-img.png"  alt=""/></a>
+              <div class="aw-question-content">
+                  <h4>
+               <a href="/article/<%= article.id%>">大学论文</a>
+                  </h4>
+               <p>作者：
+              <a href="/u/{{this.username}}"class="aw-user-name">丁平中</a>
+            <span class="text-color-999">• 0 个回复 • 3天前</span></p>
                 </div>
-                {{/each}}
+                </div>
+
 
               </div>
             </div>
             <div class="mod-footer">
               <div class="page-control">
                 <ul id="pagination-demo" class="pagination pull-right">
-                  <li class="active"><a href="javascript:;">1</a></li>
-                  <li>
-                    <a href="http://wenda.golaravel.com/sort_type-new__day-0__is_recommend-0__page-2">2</a>
-                  </li>
-                  <li>
-                    <a href="http://wenda.golaravel.com/sort_type-new__day-0__is_recommend-0__page-3">3</a>
-                  </li>
-                  <li>
-                    <a href="http://wenda.golaravel.com/sort_type-new__day-0__is_recommend-0__page-4">4</a>
-                  </li>
-                  <li>
-                    <a href="http://wenda.golaravel.com/sort_type-new__day-0__is_recommend-0__page-2">
-                      &gt;</a></li>
-                  <li>
-                    <a href="http://wenda.golaravel.com/sort_type-new__day-0__is_recommend-0__page-42">
-                      &gt;&gt;</a></li>
+
                 </ul>
               </div>
             </div>
@@ -64,20 +38,59 @@
     </div>
   </div>
 </div>
+<input type="hidden" value={{count}}  id="allCount"/>
 {{/block}}
 
 {{#block ("foot")}}
+<script type="text/html" id="template">
+        <% articles.forEach(function(article){ %>
+        <div class="aw-item active" data-topic-id="57,">
+       <a class="aw-user-name hidden-xs" data-id="3654"href="http://wenda.golaravel.com/people/%E7%8E%8B%E5%8D%8E%E5%81%A5Ss"rel="nofollow">
+       <img src="http://wenda.golaravel.com/static/common/avatar-max-img.png"  alt=""/></a>
+              <div class="aw-question-content">
+                  <h4>
+               <a href="/article/<%= article.id%>"><%= article.title %></a>
+                  </h4>
+               <p>作者：
+              <a href="/u/{{this.username}}"class="aw-user-name"><%= article.username %></a>
+            <span class="text-color-999">• 0 个回复 • <%= article.time %></span></p>
+                </div>
+                </div>
+             <% })%>
+
+
+</script>
 <script src="/www/vender/jquery-pagination/jquery.twbsPagination.js"></script>
+<script src="/www/vender/underscore/underscore-min.js"></script>
 <script>
   $('#pagination-demo').twbsPagination({
-    totalPages: 35,
+    totalPages: $("#allCount").val(),
     visiblePages: 5,
     first: '<<',
     prev: '<',
     next: '>',
     last: '>>',
     onPageClick: function (event, page) {
-      $('#page-content').text('Page ' + page);
+      //得到页码，发起ajax请求
+        $.ajax({
+          url:"/article/list/"+page,
+          type:"get",
+          dataType:"json",
+          success:function(data){
+          if(data && data.code==200){
+           //从前台得到后台数据，使用模板字符串拼接
+            var info={
+             articles:data.result
+            }
+             var compiled = _.template($("#template").html());
+           var html= compiled(info);
+           //先清空原来的博客列表
+           $("#aw-common-list").html(html); }
+          },
+          error:function(){
+             console.log("程序执行错误了");
+          }
+        })
     }
   });
 </script>

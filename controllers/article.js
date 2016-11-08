@@ -8,12 +8,7 @@ const MarkdownIt = require('markdown-it');
 const formidable = require("formidable");
 const fs=require("fs");
 const path=require("path");
-exports.showPublish=function(req,res,next)
-{
-    if(!req.session.user)
-    {
-       return res.redirect("/");
-    }
+exports.showPublish=function(req,res,next) {
     res.render("add",{user:req.session.user});
 };
 exports.doAdd=function(req,res,next){
@@ -44,9 +39,6 @@ exports.doAdd=function(req,res,next){
   })
 };
 exports.showArticle=function(req,res,next){
-    if(!req.session.user){
-        return res.redirect("/");
-    }
   //获得匹配的文章id号
     let id=req.params.articleId;
     //根据id把文章从数据库中读取出来，再渲染到页面上
@@ -92,4 +84,24 @@ exports.uploadImage=function(req,res,next){
             })
         })
     })
-}
+};
+exports.showAllArticle=function(req,res,next){
+    //得到前台传过来的页码数字
+    let pageNumber=req.params.pageNumber;
+    //后台约定每页传递多少
+    let pageSize=req.app.locals.config.articleSize;//最好写在配置文件中
+    //计算定位的页数
+    let pageOffset=(pageNumber-1)*pageSize;
+    //mysql数据库查询
+    Article.getAllArticle(pageOffset,pageSize,function(err,row){
+        if(err){
+          return next(err.message);
+        }
+        if(row.length!==0) {
+            res.json({
+                code:"200",
+                result:row
+            })
+        }
+    })
+};

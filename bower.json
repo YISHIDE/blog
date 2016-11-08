@@ -1,0 +1,25 @@
+{
+  "name": "blog",
+  "description": "这是一个个人的博客系统",
+  "main": "app.js",
+  "authors": [
+    "丁平中"
+  ],
+  "license": "ISC",
+  "keywords": [
+    "Node.js博客系统"
+  ],
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "www/vender",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "^3.3.6",
+    "underscore": "^1.8.3"
+  }
+}

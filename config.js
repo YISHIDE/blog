@@ -5,5 +5,6 @@ const path=require("path");
 module.exports={
     debug:true,
     secret:"blog",
-    uploadDir:path.join(__dirname,"uploads")
+    uploadDir:path.join(__dirname,"uploads"),
+    articleSize:5
 }
