@@ -3,6 +3,7 @@
  */
     "use strict";
 const moment = require('moment');
+const Comments =require("../modules/comments");
 const Article=require("../modules/article");
 const MarkdownIt = require('markdown-it');
 const formidable = require("formidable");
@@ -43,22 +44,30 @@ exports.showArticle=function(req,res,next){
     let id=req.params.articleId;
     //根据id把文章从数据库中读取出来，再渲染到页面上
     Article.getArticleById(id,function(err,row){
-        if(err)
-        {
+        if(err) {
           return next(err.message);
         }
-        if(row.length!==0)
-        {
-
-              let md = new MarkdownIt();
+        if(row.length!==0) {
+            let list={};
+            let md = new MarkdownIt();
+            //markdown插件渲染成html的页面
             let content = md.render(row[0].content);
             row[0].content=content;
-            res.render("article",{article:row[0],
-            user:req.session.user
+            list.article=row[0];
+            //根据文章的id找到对应的评论
+            Article.getComments(id,function(err,result){
+               if(err){
+                  return next(err.message);
+               }
+               list.comments=result;
+                console.log(list);
+                res.render("article",{
+                    list:list,
+                    user:req.session.user
+                });
             });
         }
     })
-    //res.render("article");
 };
 exports.uploadImage=function(req,res,next){
     let form = new formidable.IncomingForm();
@@ -87,16 +96,19 @@ exports.uploadImage=function(req,res,next){
 };
 exports.showAllArticle=function(req,res,next){
     //得到前台传过来的页码数字
+    moment.locale('zh-cn');
     let pageNumber=req.params.pageNumber;
     //后台约定每页传递多少
     let pageSize=req.app.locals.config.articleSize;//最好写在配置文件中
     //计算定位的页数
     let pageOffset=(pageNumber-1)*pageSize;
-    //mysql数据库查询
+    //mysql数据库查询,进行和作者匹配的多表查询
     Article.getAllArticle(pageOffset,pageSize,function(err,row){
         if(err){
           return next(err.message);
         }
+        //对row数组中每项time进行修改
+        row.map(a=>a.time = moment(a.time).startOf('second').fromNow());
         if(row.length!==0) {
             res.json({
                 code:"200",
@@ -104,4 +116,32 @@ exports.showAllArticle=function(req,res,next){
             })
         }
     })
+};
+//添加评论
+exports.addComments=function(req,res,next){
+    let uid=req.session.user.id;
+    let aid=req.params.articleId;
+    let content=req.body.content;
+    let time=moment().format('YYYY-MM-DD HH:mm:ss');
+    //做基本的校验
+    let comments=new Comments({
+        uid,
+        aid,
+        content,
+        time
+    });
+    comments.save(function(err,row){
+       if(err)
+       {
+         return  next(err.message);
+       }
+       if(row.insertId!==0)
+       {
+           comments.username=req.session.user.username;
+           res.json({
+               code:"200",
+               comments
+           })
+       }
+    });
 };

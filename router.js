@@ -20,6 +20,7 @@ router.get("/article/add",[checkIsLogin,article.showPublish]);
 router.post("/article/add",article.doAdd);
 router.post("/article/upload",article.uploadImage);
 router.get("/article/:articleId",article.showArticle);
+router.post("/article/answer/:articleId",article.addComments);
 //路由写请求的权限校验，即哪些页面需要登录才能够访问，哪些页面登录后不能访问的,权限封装
 function checkLogin(req,res,next){
     if(req.session.user){

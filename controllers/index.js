@@ -9,8 +9,6 @@ exports.showIndex=function(req,res,next){
         {
             return next(err.message);
         }
-         console.log(row[0]["count"]);
-         console.log(req.app.locals.articleSize);
          let count=Math.ceil(row[0]["count"]/(req.app.locals.config.articleSize));
          res.render("index",{user:req.session.user,
              count
