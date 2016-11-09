@@ -5,7 +5,8 @@ CREATE TABLE user(
    id INT PRIMARY KEY auto_increment,
    username VARCHAR(20) NOT NULL,
    password VARCHAR(50) NOT NULL,
-   email VARCHAR(50) NOT NULL
+   email VARCHAR(50) NOT NULL,
+   userImage VARCHAR(100) NOT NULL
 );
 CREATE TABLE article(
    id INT PRIMARY KEY auto_increment,

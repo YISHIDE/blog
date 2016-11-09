@@ -13,6 +13,7 @@ exports.doRegister=function(req,res,next){
     let username=req.body.username;
     let email=req.body.email;
     let password=req.body.password;
+    let userImage="avatar.png";
     //可以为字母，数字或者下划线，为3到10位的正则
     let regxUser =/^[\w\d_]{3,10}$/;
     //匹配密码，位数为8-16位
@@ -58,7 +59,8 @@ exports.doRegister=function(req,res,next){
         let user=new User({
             username,
             email,
-            password
+            password,
+            userImage
         });
         user.save(function(err,row){
             if(err){

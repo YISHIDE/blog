@@ -7,7 +7,8 @@ const db=require("./db");
 function User(user){
     this.username=user.username;
     this.email=user.email;
-    this.password=user.password
+    this.password=user.password;
+    this.userImage=user.userImage;
 };
 //用户后台的方法
 //判断用户是否存在
@@ -18,7 +19,7 @@ User.isUser=function(usename,callback){
    })
 };
 User.prototype.save=function(callback){
-   db.query("insert into user values(null,?,?,?)",[this.username,this.password,this.email],function(){
+   db.query("insert into user values(null,?,?,?,?)",[this.username,this.password,this.email,this.userImage],function(){
        callback.apply(null,arguments);
    });
 };

@@ -17,19 +17,19 @@ Article.prototype.save=function(callback){
 };
 //根据id查找文章
 Article.getArticleById=function(id,callback){
-    db.query("select * from article where id=?",[id],function(){
+    db.query("select * from article as a inner join user as u where a.id=? and a.uid=u.id",[id],function(){
         callback.apply(null,arguments);
     })
 };
 //根据文章id查找对应文章的评论以及作者
 Article.getComments=function(aid,callback){
-    db.query("SELECT c.id,c.content,c.time,u.username from comments as c INNER JOIN user as u where c.aid=? AND c.uid=u.id",[aid],function(){
+    db.query("SELECT c.id,c.content,c.time,u.username,u.userImage from comments as c INNER JOIN user as u where c.aid=? AND c.uid=u.id",[aid],function(){
         callback.apply(null,arguments);
     })
 }
 //得到所有的文章列表
 Article.getAllArticle=function(offset,pageSize,callback){
-   db.query("select a.id,a.title,a.content,a.time,b.username from article as a INNER JOIN user as b WHERE a.uid=b.id order by a.time desc limit ?,?",[offset,pageSize],function(){
+   db.query("select a.id,a.title,a.content,a.time,b.username,b.userImage from article as a INNER JOIN user as b WHERE a.uid=b.id order by a.time desc limit ?,?",[offset,pageSize],function(){
        callback.apply(null,arguments);
    });
 };

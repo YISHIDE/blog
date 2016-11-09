@@ -60,7 +60,6 @@ exports.showArticle=function(req,res,next){
                   return next(err.message);
                }
                list.comments=result;
-                console.log(list);
                 res.render("article",{
                     list:list,
                     user:req.session.user
@@ -138,6 +137,7 @@ exports.addComments=function(req,res,next){
        if(row.insertId!==0)
        {
            comments.username=req.session.user.username;
+           comments.userImage=req.session.user.userImage;
            res.json({
                code:"200",
                comments

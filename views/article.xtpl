@@ -35,7 +35,7 @@
                   <!-- 用户头像 -->
                   <a class="aw-user-img aw-border-radius-5 pull-right"
                      href="http://wenda.golaravel.com/people/qixiaojun" data-id="996"><img
-                          src="http://wenda.golaravel.com/uploads/avatar/000/00/09/96_avatar_mid.jpg" alt=""/></a>
+                          src="/uploads/avatar/{{userImage}}" alt=""/></a>
                   <!-- end 用户头像 -->
                   <div class="title">
                     <p>
@@ -113,11 +113,11 @@
               <dl>
                 <dt class="pull-left aw-border-radius-5">
                   <a href="http://wenda.golaravel.com/people/%E7%8E%8B%E5%8D%8E%E5%81%A5Ss"><img alt="王华健Ss"
-                                                                                                 src="http://wenda.golaravel.com/static/common/avatar-mid-img.png"/></a>
+                                                                                                 src="/uploads/avatar/{{list.article.userImage}}"/></a>
                 </dt>
                 <dd class="pull-left">
                   <a class="aw-user-name" href="http://wenda.golaravel.com/people/%E7%8E%8B%E5%8D%8E%E5%81%A5Ss"
-                     data-id="3654">王华健Ss</a>
+                     data-id="3654">{{list.article.username}}</a>
                   <p></p>
                 </dd>
               </dl>
@@ -141,7 +141,7 @@
             <a class="anchor" name="answer_2935"></a>
              <!-- 用户头像 -->
           <a class="aw-user-img aw-border-radius-5 pull-right"href="http://wenda.golaravel.com/people/qixiaojun" data-id="996">
-          <img src="http://wenda.golaravel.com/uploads/avatar/000/00/09/96_avatar_mid.jpg" alt=""/></a>
+          <img src="/uploads/avatar/<%= comments.userImage%>" alt=""/></a>
                   <!-- end 用户头像 -->
                   <div class="title">
                     <p>

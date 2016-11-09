@@ -56,12 +56,10 @@
 
         {{#if (user)}}
       <a href="http://wenda.golaravel.com/people/peng" class="aw-user-nav-dropdown">
-        <img alt="peng" src="http://wenda.golaravel.com/uploads/avatar/000/00/36/75_avatar_mid.jpg"/>
+        <img alt="peng" src="/uploads/avatar/{{user.userImage}}"/>
       </a>
       <div class="aw-dropdown dropdown-list pull-right">
         <ul class="aw-dropdown-list">
-          <li class="hidden-xs"><a href="http://wenda.golaravel.com/setting/profile/"><i class="icon icon-setting"></i>
-            设置</a></li>
           <li><a href="/logout"><i class="icon icon-logout"></i> 退出</a></li>
         </ul>
       </div>

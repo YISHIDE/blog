@@ -6,5 +6,6 @@ module.exports={
     debug:true,
     secret:"blog",
     uploadDir:path.join(__dirname,"uploads"),
-    articleSize:5
+    articleSize:5,
+    avatar:path.join(__dirname,"uploads/avatar")
 }
